@@ -2,4 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/login', 'auth.login');
+Route::middleware('auth')->group(function(){
+
+    Route::view('/home', 'home');
+
+});
