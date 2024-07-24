@@ -46,8 +46,7 @@ class DepartmentController extends Controller
     {
         Auth::user()->can('admin') ?: abort(403, 'You are not authorized to access this page');
 
-        // check if id === 1
-        if(intval($id) === 1){
+        if($this->isDepartmentBlocked($id)){
             return redirect()->route('departments');
         }
 
@@ -67,8 +66,7 @@ class DepartmentController extends Controller
             'name' => 'required|string|min:3|max:50|unique:departments,name,' . $id
         ]);
 
-        // check if id === 1
-        if(intval($id) === 1){
+        if($this->isDepartmentBlocked($id)){
             return redirect()->route('departments');
         }
 
@@ -85,7 +83,7 @@ class DepartmentController extends Controller
     {
         Auth::user()->can('admin') ?: abort(403, 'You are not authorized to access this page');
 
-        if(intval($id) === 1){
+        if($this->isDepartmentBlocked($id)){
             return redirect()->route('departments');
         }
 
@@ -99,7 +97,7 @@ class DepartmentController extends Controller
     {
         Auth::user()->can('admin') ?: abort(403, 'You are not authorized to access this page');
 
-        if(intval($id) === 1){
+        if($this->isDepartmentBlocked($id)){
             return redirect()->route('departments');
         }
 
@@ -108,5 +106,10 @@ class DepartmentController extends Controller
         $department->delete();
 
         return redirect()->route('departments');
+    }
+
+    private function isDepartmentBlocked($id)
+    {
+        return in_arry(intval($id), [1,2]);
     }
 }
