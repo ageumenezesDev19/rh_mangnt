@@ -38,7 +38,7 @@
                                 $permissions = json_decode($colaborator->permissions)    
                             @endphp
 
-                            <td>{{ implode($permissions, ',') }}</td>
+                            <td>{{ implode(',', $permissions) }}</td>
 
                             <td>
 

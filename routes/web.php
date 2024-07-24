@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function(){
     // rh colaborators routes
     Route::get('/rh-users', [RhUserController::class, 'index'])->name('colaborators.rh-users');
     Route::get('/rh-users/new-colaborator', [RhUserController::class, 'newColaborator'])->name('colaborators.new-colaborator');
+    Route::post('/rh-users/create-colaborator', [RhUserController::class, 'createRhColaborator'])->name('colaborators.create-colaborator');
 
 
 
