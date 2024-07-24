@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -76,6 +77,35 @@ class DepartmentController extends Controller
         $department->update([
             'name' => $request->name
         ]);
+
+        return redirect()->route('departments');
+    }
+
+    public function deleteDepartment($id)
+    {
+        Auth::user()->can('admin') ?: abort(403, 'You are not authorized to access this page');
+
+        if(intval($id) === 1){
+            return redirect()->route('departments');
+        }
+
+        $department = Department::findOrFail($id);
+
+        // display page for confirmation
+        return view('department.delete-department-confirm', compact('department'));
+    }
+
+    public function deleteDepartmentConfirm($id)
+    {
+        Auth::user()->can('admin') ?: abort(403, 'You are not authorized to access this page');
+
+        if(intval($id) === 1){
+            return redirect()->route('departments');
+        }
+
+        $department = Department::findOrFail($id);
+
+        $department->delete();
 
         return redirect()->route('departments');
     }
