@@ -110,6 +110,6 @@ class DepartmentController extends Controller
 
     private function isDepartmentBlocked($id)
     {
-        return in_arry(intval($id), [1,2]);
+        return in_array(intval($id), [1,2]);
     }
 }
